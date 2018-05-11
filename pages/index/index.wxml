@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<view class="container">
+  <swiper indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item.pic}}" class="slide-image" mode='aspectFill' width="100%" height="100%"/>
+      </swiper-item>
+    </block>
+  </swiper>
+
+<view class='bottom-page'>
+  <button bindtap="goShop" class='into-order'> 开始点餐 </button>
+ 
+</view>
+<view class='my-order' bindtap='toMyOrder'>
+  <view class='left'>我的订单</view>
+  <view class='right'>查看订单>></view>
+</view>
+  <!-- <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto" bindtap='testTap'>{{motto}}</text>
+  </view> -->
+</view>

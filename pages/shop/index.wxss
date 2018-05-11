@@ -1,0 +1,164 @@
+/**index.wxss**/
+.app-search-bar{
+  padding-top:18rpx;
+  padding-bottom: 18rpx;
+  height: 64rpx;
+  width: 100%;
+  background: #fff;
+  line-height: 642rpx;
+}
+.app-search-bar .left{
+  float: left;
+  width: 27.5%;
+  margin-left: 2.5%;
+  height: 100%;
+  line-height: 64rpx;
+  font-size: 14px;
+  text-align: center;
+}
+.app-search-bar .right{
+  float: right;
+  width:95%;
+  margin-right: 2.5%;
+  height: 100%;
+  font-size: 14px;
+  position: relative;
+}
+
+.app-search-bar .right .icon-left{
+  position: absolute;
+  line-height: 64rpx;
+  left: 22rpx;
+  top: 16rpx;
+}
+.app-search-bar .right .icon-right{
+  position: absolute;
+  line-height: 64rpx;
+  right: 22rpx;
+  top: 16rpx;
+}
+.app-search-bar .right input{
+  position: absolute;
+  line-height: 64rpx;
+  left: 28px;
+  top: 0;
+  height: 64rpx;
+  right: 28px;
+}
+
+.app-select-title{
+  height:80rpx;
+  width: 100%;
+  margin-top: 20rpx;
+  background: #fff;
+  text-align: center;
+  font-size: 14px;
+  line-height: 80rpx;
+  border-bottom:1px solid #ccc; 
+}
+.app-select-title .active{
+  border-bottom: 1px solid #9fc03a;
+}
+.app-select-title .left{
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.app-select-title .right{
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.app-place-list{
+  position: absolute;
+  top: 198rpx;
+  width: 100%;
+  bottom: 410rpx;
+}
+.place-item{
+  border-bottom: 1px solid #ccc;
+  padding-left: 80rpx;
+  padding-right: 100rpx;
+  height: 80rpx;
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  background: #fff;
+  font-size: 12px;
+  position: relative;
+}
+.place-item .txt.right{
+  color: #ccc;
+  float: right;
+}
+.app-place-list .place-item .icon{
+  position: absolute;
+  left: 25rpx;
+  top: 55rpx;
+}
+.disable{
+  display: none;
+}
+
+.collection{
+  width: 26px;
+  height: 24px;
+  position: absolute;
+  right: 14px;
+  top: 15px;
+}
+
+.enter-order{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0px;
+  background-color: #9fc03a;
+  color:#fff;
+}
+.enter-order.gray{
+ background: #ccc;
+ border: none;
+ }
+.bottom-container{
+  position:absolute;
+  bottom:90rpx;
+  width: 100%;
+  background: #fff;
+  height: 300rpx;
+}
+.bottom-container .title{
+  padding: 20rpx;
+  border-bottom: 1px solid #9fc03a;
+  font-size: 16px;
+}
+.bottom-container .content{
+  padding: 20rpx;
+}
+.bottom-container .content .item{
+  font-size: 14px;
+  padding-bottom: 20rpx;
+  position: relative;
+}
+.bottom-container .content .item icon{
+  position: absolute;
+  top: 6rpx;
+}
+.bottom-container .content .item.active{
+ color: #9fc03a;
+}
+.bottom-container .content .item text{
+  margin-left: 50rpx;
+}
+.address{
+  width: 100%;
+  overflow: hidden;/*超出部分隐藏*/
+            white-space: nowrap;/*不换行*/
+            text-overflow:ellipsis;/*超出部分文字以...显示*/
+}
+.open-time{
+  background: #ccc;
+  color: #fff;
+  border-radius: 8rpx;
+  font-size: 12px;
+  margin-left: 4rpx;
+}

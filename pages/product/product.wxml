@@ -1,0 +1,10 @@
+<!--index.wxml-->
+<view class="container">
+  <image src='{{product.pic}}' class='img' bindtap='toProductPage'></image>
+
+  <view>
+    <view class='title line'>品名：{{product.title}}</view>
+    <view class='price line'>价格：￥{{product.price}}</view>
+    <view class='price line' >简介：{{product.detail}}</view>
+  </view>
+</view>

@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="container">
+  <scroll-view scroll-y class='order-list'>
+    <view class="item" bindtap='toMyOrder' wx:for="{{orderRelList}}" data-index="{{index}}">
+      <view class='left'>
+        <view class='l1'>您本次订单{{item.orderList[0].productListDto.sum}}份餐品</view>
+        <view class='l2'>{{item.createTime}}</view>
+      </view>
+      <view class='right'>
+        <view class='l1' wx:if="{{item.orderList[0].orderStatus == '1' }}"><text>待支付 ></text></view>
+        <view class='l1' wx:if="{{item.orderList[0].orderStatus == '2' }}"><text style='color:green;'>已支付 ></text></view>
+        <view class='l1' wx:if="{{item.orderList[0].orderStatus == '3' }}"><text style='color:#ccc;'>交易关闭 ></text></view>
+        <view class='l2'>
+          <text wx:if="{{item.orderList[0].orderStatus == '1' }}">￥{{item.orderList[0].totalPrice}}</text>
+          <text wx:if="{{item.orderList[0].orderStatus == '2' }}" style='color:green;'>￥{{item.orderList[0].totalPrice}}</text>
+          <text wx:if="{{item.orderList[0].orderStatus == '3' }}" style='color:#ccc;'>￥{{item.orderList[0].totalPrice}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

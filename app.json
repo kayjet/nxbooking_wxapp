@@ -1,0 +1,19 @@
+{
+  "pages":[
+    
+    "pages/index/index",
+    "pages/bill/bill",
+    "pages/shop/index",
+    "pages/order/index",
+    "pages/my-order/myOrder",
+    "pages/my-order-list/myOrderList",
+    "pages/product/product"
+    
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "暖系点单",
+    "navigationBarTextStyle":"black"
+  }
+}

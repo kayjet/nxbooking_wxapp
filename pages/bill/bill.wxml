@@ -1,0 +1,54 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='line'>
+      <view>门店名称：{{selectedShop.name}}</view>
+      <view>门店地址：{{selectedShop.address}}</view>
+  </view> 
+  <view class='line concat'>
+    <view class='left'>联系方式 <text style='color:red;'>*</text> </view>
+    <view class='right'>
+      <image src='../../images/mobilephone_fill.png' class='phone-icon'></image>
+      <input class='input' bindinput="bindKeyInput" ></input>
+    </view>
+    
+  </view>
+  <view class='line pay'>
+    <view>
+      支付方式
+    </view>
+    <image class='wx-pay-icon' src='../../images/wx_pay.jpg'></image>
+  </view>
+
+
+
+<view class='cart-detail {{cartItems.length==0?"disabled":""}}'>
+  <view class='top' bindtap='showCartDetail'>
+    <view class='arrow-top-container'>
+      <image src='../../images/arrow_top.png' class='{{isCartDetailShow? "disabled":""}}'></image>
+      <image src='../../images/arrow_bottom.png' class='{{isCartDetailShow? "":"disabled"}}'></image>
+    </view>
+  </view>
+  <view class='bottom {{isCartDetailShow? "":"disabled"}}' >
+    <view class='item' wx:for="{{cartItems}}" >
+      <view class='title'>{{item[0].title}}  <text>X {{item.length}}</text></view>
+      <view class='price'>￥{{item[0].price * item.length}}</view>
+      
+    </view>
+    
+  </view>
+</view>
+<view class='cart' >
+ <view class='left' bindtap='showCartDetail'>
+   <image src='../../images/cart.png' class='cart-icon' width='30'></image>
+    <view class='txt {{cartItems.length==0?"disabled":""}}'>￥{{totalPrice}}</view>
+    <view class='txt  {{cartItems.length==0?"":"disabled"}}'>--.--</view>
+ </view>
+ <view class='right'>
+  <view class='order-button'  bindtap="payBill" hover-class="other-button-hover">
+    <text style='margin-left:30rpx;'>提交订单</text>
+    <image src='../../images/arrow_right.png' class='right-arrow'></image>
+  </view>
+ </view>  
+</view>
+
+</view>

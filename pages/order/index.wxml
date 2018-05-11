@@ -1,0 +1,109 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class='scroll'>
+    <scroll-view scroll-y style="height:100%;" class='sv-left' id="leftBar" scroll-with-animation='true' scroll-into-view="{{toLeftViewId}}" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scrollLeft">
+      <view class="item {{item.isActive? 'active' : ''}}" id="leftId{{index}}" wx:for="{{leftData}}" data-index='{{index}}' bindtap='onClickLeftItem'>
+        <image class='icon' src='{{item.pic}}'></image>
+        <view>
+          <text>{{item.title}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <scroll-view scroll-y='true' style="height:100%;background:#fff;" class='sv-right' scroll-with-animation='true' id="rightBar" scroll-into-view="{{scrollToViewId}}" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scrollRight">
+      <view class="item" wx:for="{{rightData}}" id='rightId{{index}}' data-index='{{index}}'>
+        <image src='{{item.pic}}' class='left' bindtap='toProductPage' data-index='{{index}}'></image>
+        <view class='right'>
+          <view class='title'>{{item.title}}</view>
+          <view class='price'>￥{{item.price}}</view>
+          <view class='but-container' mode='center'>
+            <view class='button' bindtap='addItem' data-data="{{item}}">
+              <image src='../../images/add.png' class='add'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class='cart-detail {{cartItems.length==0?"disabled":""}}'>
+    <view class='top' bindtap='showCartDetail'>
+      <view class='arrow-top-container'>
+        <image src='../../images/arrow_top.png' class='{{isCartDetailShow? "disabled":""}}'></image>
+        <image src='../../images/arrow_bottom.png' class='{{isCartDetailShow? "":"disabled"}}'></image>
+      </view>
+    </view>
+    <view class='bottom {{isCartDetailShow? "":"disabled"}}'>
+      <view class='item' wx:for="{{cartItems}}">
+        <view class='title'>{{item[0].title}}</view>
+        <view class='price'>￥{{item[0].price * item.length}}</view>
+        <view style='font-size:12px;'  wx:if="{{item[0].requestSpecList.length !=0}}" class="">
+        >>
+        <block wx:for="{{item[0].requestSpecList}}" wx:for-item="spec">
+           <text class='cata-txt' wx:for="{{spec.specList}}" wx:for-item="s">
+              {{s.name}}  <text wx:if="{{s.price!=0}}">+{{s.price}}</text>
+            </text>
+        </block>
+        </view>
+        <view class='select'>
+          <view class='inner'>
+            <view class='button left'>
+              <image src='../../images/min.png' data-data="{{item[0]}}" data-index="{{index}}" bindtap='onMinItem' class='add'></image>
+            </view>
+            <text>{{item.length}}</text>
+            <view class='button right'>
+              <image src='../../images/add.png' data-data="{{item[0]}}" data-index="{{index}}" bindtap='onAddItemOnceMore' class='add'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+ <view class='modal'>
+   <view class='cart'>
+    <view class='left' bindtap='showCartDetail'>
+      <image src='../../images/cart.png' class='cart-icon' width='30'></image>
+      <view class='txt {{cartItems.length==0?"disabled":""}}'>
+        <text style='font-size:18px;'>￥</text> {{totalPrice}}</view>
+      <view class='txt  {{cartItems.length==0?"":"disabled"}}'>--.--</view>
+    </view>
+    <view class='right'>
+      <view class='order-button' bindtap="payBill" hover-class="other-button-hover">
+        <text style='margin-left:30rpx;'>选好了</text>
+        <image src='../../images/arrow_right.png' class='right-arrow'></image>
+      </view>
+    </view>
+
+
+  </view>
+ </view>
+  <view class='catagory' wx:if="{{isCataShow}}">
+    <view class='wrapper'>
+      <view class='title'>
+      <text>{{cataItem.title}}</text>
+        <image src='../../images/close.png' class='close' bindtap='closeCataory'></image>
+      </view>
+      <view class='content'>
+        <view class='cata-parent' wx:for="{{specList}}" wx:for-item="parent" wx:for-index="parentIdx">
+          <view style='padding-bottom:12rpx;'>{{parent.parentName}}</view>
+         <view style='padding-top:12rpx;padding-bottom:12rpx;margin-bottom:12rpx;'>
+           <text class='cata-child {{child.isActive?"active":""}}'
+            wx:for="{{parent.specList}}" 
+           wx:for-item="child" wx:for-index="childIdx" data-item="{{child}}" data-parentindex="{{parentIdx}}"
+            data-childindex="{{childIdx}}"
+           bindtap='selectSpec'>{{child.name}}</text>
+         </view>
+        </view>
+      </view>
+      <view class='bottom'>
+        <view class='left'>
+          <view style='padding-left:24rpx;' wx:if="{{cataItem.totallyPrice}}">￥{{cataItem.totallyPrice}}</view>
+          <view style='padding-left:24rpx;' wx:if="{{!cataItem.totallyPrice}}">￥{{cataItem.price}}</view>
+        </view>
+        <view class='right' bindtap='addSpecIntoCart'>加入购物车</view>
+      </view>
+    </view>
+  </view>
+  <!-- <button size="14" class='enter-order'  bindtap="" hover-class="other-button-hover"> 进入菜单 </button> -->
+</view>

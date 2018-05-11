@@ -1,0 +1,12 @@
+.img{
+  width: 100%;
+}
+.container{
+  background: #fff !important;
+}
+.line{
+  border-bottom: 1px solid #eee;
+  padding: 40rpx;
+  font-size: 14px;
+  position: relative;
+}

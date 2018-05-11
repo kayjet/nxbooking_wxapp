@@ -1,0 +1,54 @@
+/**index.wxss**/
+.line{
+  background: #fff;
+  padding: 20rpx;
+  margin-bottom: 28rpx;
+  font-size: 14px; 
+  position: relative;
+}
+.wx-pay-icon{
+  position: absolute;
+  right: 0;
+  width: 160rpx;
+  height: 120rpx;
+  top: 0rpx;
+}
+.line .pay{
+  font-size: 16px;
+}
+.concat{
+  height: 55rpx;
+  line-height: 55rpx;
+}
+.concat .left{
+  float: left;
+  width: 30%;
+}
+.concat .right{
+ float: left;
+ width: 69%;
+ position: relative;
+  border: 1px solid #ccc;
+  height: 100%;
+  border-radius: 4px;
+}
+.concat .right .input{
+ 
+  position: absolute;
+  left: 70rpx;
+  right: 0;
+  border-left: 1px solid #ccc;
+  height: 100%;
+  padding-left: 4px;
+
+}
+.pay{
+  padding-top:40rpx;
+  padding-bottom: 40rpx; 
+  font-size: 16px;
+}
+.phone-icon{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+}

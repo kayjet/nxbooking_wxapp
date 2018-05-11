@@ -1,0 +1,86 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='app-search-bar'>
+    <!-- <view class='app-border-1px left'>
+      <text>闵行区</text>
+    </view> -->
+    <view class='app-border-1px right'>
+      <icon class='icon-left' type="search" size="14"/>
+      <input placeholder='搜索附近门店' value='{{searchText}}' bindinput="bindKeyInput" ></input>
+       <icon class='icon-right' type="clear" size="14" bindtap='onClearSearch'/>
+    </view>
+  </view>
+
+  <view class='app-select-title'>
+    <view class="left {{titleIndex==0 ? 'active' : ''}}" bindtap='onChangTitle' data-index='0'>附近的门店({{palceList.length}})</view>
+    <view class="right {{titleIndex==1 ? 'active' : ''}}" bindtap='onChangTitle' data-index='1'>收藏的门店({{favouriteList.length}}) </view>
+  </view>
+
+<!--附近门店 start -->
+   <scroll-view class="app-place-list" wx:if="{{titleIndex == 0}}" scroll-y="true" >
+    <view class='place-item' wx:for="{{palceList}}">
+      <view  data-selected='{{item}}' data-index='{{index}}' bindtap='onSelectNearby'>
+        <icon class='icon {{item.isSelected?"":"disable"}}' type="success_no_circle" size="14" />
+        <icon class='icon {{item.isSelected?"disable":""}}' type="success" size="14" color='gray'/>
+        <view>
+          <text>{{item.name}}</text>
+          <text class='open-time' wx:if="{{!item.open}}">  营业时间{{item.openTime}}-{{item.closeTime}}  </text>
+          <text class='txt right'>{{item.distance}}米</text>
+        </view>
+        <view style='margin-top:8rpx;' class='address'>
+          <text style='color:#ccc;'>{{item.address}}</text>
+        </view>
+      </view>
+      <view bindtap='onCollection'  data-selected='{{item}}' data-index='{{index}}' >
+        <image src='../../images/collection.png' class='img collection {{item.isFavourite?"disable":""}}' ></image>
+        <image src='../../images/collection_2.png' class='img collection {{item.isFavourite?"":"disable"}}' ></image>
+      </view>
+    </view>
+
+   </scroll-view>
+<!--附近门店 end -->   
+
+<!--收藏门店 start -->
+   <scroll-view class="app-place-list"  wx:if="{{titleIndex == 1}}"s scroll-y="true" style="">
+    <view class='place-item' wx:for="{{favouriteList}}">
+      <view  data-selected='{{item}}' data-index='{{index}}' bindtap='onSelectFavourite'>
+        <icon class='icon {{item.isSelected?"":"disable"}}' type="success_no_circle" size="14" />
+        <icon class='icon {{item.isSelected?"disable":""}}' type="success" size="14" color='gray'/>
+        <view>
+          <text>{{item.name}}</text>
+          <text class='open-time' wx:if="{{!item.open}}">  营业时间{{item.openTime}}-{{item.closeTime}}  </text>
+        </view>
+        <view style='margin-top:8rpx;' class='address'>
+          <text style='color:#ccc;'>{{item.address}}</text>
+        </view>
+      </view>
+      <view bindtap='onDeleteCollection'  data-selected='{{item}}' data-index='{{index}}' >
+        <image src='../../images/collection_2.png' class='img collection' ></image>
+      </view>
+    </view>
+   </scroll-view>
+<!--收藏门店 start -->   
+
+<view class='bottom-container'>
+  <view class="title">取餐时间</view>
+  <view class='content'>
+    <view class='item {{orderType=="1"? "active" : ""}}' bindtap='onChangeOrderTime' data-orderType='1'>
+       <icon class='icon {{orderType=="1"? "" : "disable"}}' type="success_no_circle" size="14" />
+       <icon class='icon {{orderType=="1"? "disable" : ""}}' type="success" size="14" color='gray'/> 
+       <text>现在，支付成功后直接取餐</text>
+    </view>
+    <view class='item {{orderType=="2"? "active" : ""}}'  >
+       <icon class='icon {{orderType=="2"? "" : "disable"}}' type="success_no_circle" size="14" />
+       <icon class='icon {{orderType=="2"? "disable" : ""}}' type="success" size="14" color='gray'/> 
+      
+        <picker mode="time" value="{{time}}" start="14:00" end="21:00"  bindchange="bindTimeChange">
+          <view class="picker">
+            <text>稍晚，预约当天，稍晚时间</text>
+          </view>
+        </picker>
+       
+    </view>
+  </view>
+</view>
+<button size="14" class='enter-order {{(selectedShop && selectedShop.open)?"":"gray"}}'  bindtap="onNavToOrder" hover-class="other-button-hover"> 进入菜单 </button>
+</view>
