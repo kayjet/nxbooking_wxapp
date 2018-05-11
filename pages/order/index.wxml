@@ -37,13 +37,13 @@
       <view class='item' wx:for="{{cartItems}}">
         <view class='title'>{{item[0].title}}</view>
         <view class='price'>￥{{item[0].price * item.length}}</view>
-        <view style='font-size:12px;'  wx:if="{{item[0].requestSpecList.length !=0}}" class="">
-        >>
-        <block wx:for="{{item[0].requestSpecList}}" wx:for-item="spec">
-           <text class='cata-txt' wx:for="{{spec.specList}}" wx:for-item="s">
+        <view style='font-size:12px;' wx:if="{{item[0].requestSpecList.length !=0}}" class="">
+          >>
+          <block wx:for="{{item[0].requestSpecList}}" wx:for-item="spec">
+            <text class='cata-txt' wx:for="{{spec.specList}}" wx:for-item="s">
               {{s.name}}  <text wx:if="{{s.price!=0}}">+{{s.price}}</text>
             </text>
-        </block>
+          </block>
         </view>
         <view class='select'>
           <view class='inner'>
@@ -60,40 +60,36 @@
 
     </view>
   </view>
- <view class='modal'>
-   <view class='cart'>
-    <view class='left' bindtap='showCartDetail'>
-      <image src='../../images/cart.png' class='cart-icon' width='30'></image>
-      <view class='txt {{cartItems.length==0?"disabled":""}}'>
-        <text style='font-size:18px;'>￥</text> {{totalPrice}}</view>
-      <view class='txt  {{cartItems.length==0?"":"disabled"}}'>--.--</view>
-    </view>
-    <view class='right'>
-      <view class='order-button' bindtap="payBill" hover-class="other-button-hover">
-        <text style='margin-left:30rpx;'>选好了</text>
-        <image src='../../images/arrow_right.png' class='right-arrow'></image>
+  <view class='modal {{isCartDetailShow? "":"disabled"}}' ></view>
+    <view class='cart'>
+      <view class='left' bindtap='showCartDetail'>
+        <image src='../../images/cart.png' class='cart-icon' width='30'></image>
+        <view class='txt {{cartItems.length==0?"disabled":""}}'>
+          <text style='font-size:18px;'>￥</text> {{totalPrice}}</view>
+        <view class='txt  {{cartItems.length==0?"":"disabled"}}'>--.--</view>
       </view>
+      <view class='right'>
+        <view class='order-button' bindtap="payBill" hover-class="other-button-hover">
+          <text style='margin-left:30rpx;'>选好了</text>
+          <image src='../../images/arrow_right.png' class='right-arrow'></image>
+        </view>
+      </view>
+
+
     </view>
-
-
-  </view>
- </view>
+  
   <view class='catagory' wx:if="{{isCataShow}}">
     <view class='wrapper'>
       <view class='title'>
-      <text>{{cataItem.title}}</text>
+        <text>{{cataItem.title}}</text>
         <image src='../../images/close.png' class='close' bindtap='closeCataory'></image>
       </view>
       <view class='content'>
         <view class='cata-parent' wx:for="{{specList}}" wx:for-item="parent" wx:for-index="parentIdx">
           <view style='padding-bottom:12rpx;'>{{parent.parentName}}</view>
-         <view style='padding-top:12rpx;padding-bottom:12rpx;margin-bottom:12rpx;'>
-           <text class='cata-child {{child.isActive?"active":""}}'
-            wx:for="{{parent.specList}}" 
-           wx:for-item="child" wx:for-index="childIdx" data-item="{{child}}" data-parentindex="{{parentIdx}}"
-            data-childindex="{{childIdx}}"
-           bindtap='selectSpec'>{{child.name}}</text>
-         </view>
+          <view style='padding-top:12rpx;padding-bottom:12rpx;margin-bottom:12rpx;'>
+            <text class='cata-child {{child.isActive?"active":""}}' wx:for="{{parent.specList}}" wx:for-item="child" wx:for-index="childIdx" data-item="{{child}}" data-parentindex="{{parentIdx}}" data-childindex="{{childIdx}}" bindtap='selectSpec'>{{child.name}}</text>
+          </view>
         </view>
       </view>
       <view class='bottom'>

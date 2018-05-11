@@ -20,6 +20,7 @@ page{
   width: 100%;
   height: 100rpx;
   background: #9fc03a;
+  z-index: 9;
 }
 .cart .left{
   float: left;
@@ -62,6 +63,7 @@ page{
   position: fixed;
   bottom: 100rpx;
   width: 100%;
+   z-index: 9;
 }
 .right-arrow{
   width:40rpx;
