@@ -130,6 +130,13 @@ const isEqual = function (a, b) {
 module.exports = {
   formatTime: formatTime,
   isEqual: isEqual,
-  BASE_URL:"https://www.opdar.com/booking/",
-  BASE_IMG_URL:"https://www.opdar.com/booking/image/image/getAvatar?avatarName=",
+  BASE_URL: "https://www.opdar.com/booking/",
+  BASE_IMG_URL: "https://www.opdar.com/booking/image/image/getAvatar?avatarName=",
+  isMobile: function (val) {
+    if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(val)) || val.length!=11) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

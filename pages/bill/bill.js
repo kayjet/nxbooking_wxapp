@@ -1,5 +1,6 @@
 //bill.js
 //获取应用实例
+import utils from '../../utils/util';
 const app = getApp()
 
 Page({
@@ -42,7 +43,16 @@ Page({
     }
     if (this.data.phone == '') {
       wx.showToast({
-        title: "请填写手机号",
+        title: "请正确填写手机号",
+        icon: "none",
+        duration: 2000
+      })
+      return;
+    }
+//获取应用实例
+    if (!utils.isMobile(this.data.phone )){
+      wx.showToast({
+        title: "请正确填写手机号",
         icon: "none",
         duration: 2000
       })
