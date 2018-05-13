@@ -60,7 +60,7 @@
 
     </view>
   </view>
-  <view class='modal {{isCartDetailShow? "":"disabled"}}' ></view>
+  <view class='modal {{cartItems.length==0?"disabled":""}}' ></view>
     <view class='cart'>
       <view class='left' bindtap='showCartDetail'>
         <image src='../../images/cart.png' class='cart-icon' width='30'></image>
