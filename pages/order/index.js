@@ -121,6 +121,11 @@ Page({
     this.setData({
       cartItems: ret
     });
+    if(ret.length==0){
+      this.setData({
+        isCartDetailShow:false
+      });
+    }
     var price = 0;
     if (evt.currentTarget.dataset.data.totallyPrice) {
       price = evt.currentTarget.dataset.data.totallyPrice;
