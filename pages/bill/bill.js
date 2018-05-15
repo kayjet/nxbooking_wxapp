@@ -17,7 +17,7 @@ Page({
   },
   //事件处理函数
   redirectTomyOrderList: function () {
-    wx.hideLoading()
+    wx.hideLoading();
     wx.redirectTo({
       url: '../my-order-list/myOrderList'
     })
@@ -122,6 +122,7 @@ Page({
             },
             complete: function (res) {
               console.log("payComplete", res);
+              app.globalData.cartItems = [];
               that.redirectTomyOrderList();
             },
           })
