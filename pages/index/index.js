@@ -66,7 +66,7 @@ Page({
   },
   getUserInfo: function(e) {
     var that =this;
-    var url = 'https://www.opdar.com/booking/api/sp1/user/bindUser';
+    var url = utils.BASE_URL + 'api/sp1/user/bindUser';
     var data = {};
    
     wx.login({

@@ -65,7 +65,7 @@ Page({
     var concatPhone = this.data.phone;
     var totalPrice = app.globalData.totalPrice;
     var orderTyp = app.globalData.orderType;
-    var url = 'https://www.opdar.com/booking/api/sp3/order/makeOrder?shopId=' + shopId
+    var url = utils.BASE_URL + 'api/sp3/order/makeOrder?shopId=' + shopId
       + "&userId=" + userId + "&concatPhone=" + concatPhone + "&totalPrice=" + totalPrice + "&orderType=" + orderTyp;
     if (app.globalData.orderTime) {
       url += "&orderTime=" + app.globalData.orderTime;
@@ -85,7 +85,6 @@ Page({
         wx.hideLoading()
       },
       success: function (reponse) {
-        console.log("makeOrder", reponse);
         if (reponse.data.code == 0) {
           wx.showToast({
             title: '下单成功',
@@ -102,14 +101,13 @@ Page({
             success: function (res) {
               wx.showLoading({
                 mask: true
-              })
-              console.log("paySuccess", res);
+              });
               wx.showToast({
                 title: '支付成功',
                 icon: 'none',
                 duration: 1000,
                 mask: true
-              })
+              });
             },
             fail: function (res) {
               console.log("payFail", res);
@@ -132,7 +130,6 @@ Page({
   },
   onLoad: function () {
     var that = this;
-    console.log("app.globalData", app.globalData);
     that.setData({
       cartItems: app.globalData.cartItems,
       totalPrice: app.globalData.totalPrice,

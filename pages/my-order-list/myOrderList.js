@@ -12,7 +12,7 @@ Page({
     console.log(app.globalData);
     var that = this;
     var userId = app.globalData.userEntity.id;
-    var url = 'https://www.opdar.com/booking/api/sp3/order/getOrder?userId=' + userId;
+    var url = utils.BASE_URL + 'api/sp3/order/getOrder?userId=' + userId;
     wx.request({
       url: url,
       method: 'get',

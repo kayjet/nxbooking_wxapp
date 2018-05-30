@@ -1,4 +1,3 @@
-
 //获取应用实例
 import utils from '../../utils/util';
 const app = getApp();
@@ -334,7 +333,7 @@ Page({
 
   },
   listProducts: function (shopId) {
-    var url = 'https://www.opdar.com/booking/api/sp2/shop/listProducts';
+    var url = utils.BASE_URL + 'api/sp2/shop/listProducts';
     var that = this;
     wx.showLoading({
       mask: true
@@ -344,10 +343,9 @@ Page({
       method: 'get',
       data: { shopId: shopId },
       complete: function () {
-        wx.hideLoading()
+        wx.hideLoading();
       },
       success: function (reponse) {
-        var leftData = [];
         if (reponse.data.code != 0)
           return;
         var orinData = reponse.data.data;
@@ -365,7 +363,11 @@ Page({
             rightData.push(t);
           }
           var count = rightData.length - 1;
-          leftData[i].toViewId = count;
+          var toleft = rightData.length - d.productList.length;
+          if (toleft<0){
+            toleft = 0;
+          }
+          leftData[i].toViewId = toleft;
           that.data.rightScrollViewCount.push(count);
         }
         leftData[0].isActive = true;
@@ -380,7 +382,6 @@ Page({
     this.listProducts(option.shopId);
   },
   onShow: function () {
-    console.log("order onShow", app.globalData.cartItems);
     this.setData({
       cartItems: app.globalData.cartItems
     })

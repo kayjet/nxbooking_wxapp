@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
-const app = getApp()
+import utils from '../../utils/util';
+const app = getApp();
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -22,21 +23,19 @@ const formatNumber = n => {
 Page({
   data: {
     userInfo: {},
-    searchText:'',
-    palceList:[],
-    favouriteList:[],
-    startTime:'',
-    titleIndex:0,
-    lat:undefined,
-    lng:undefined,
+    searchText: '',
+    palceList: [],
+    favouriteList: [],
+    startTime: '',
+    titleIndex: 0,
+    lat: undefined,
+    lng: undefined,
     hasUserInfo: false,
-    selectedShop:undefined,
-    orderType:'1',
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    time:''
+    selectedShop: undefined,
+    orderType: '1',
+    time: ''
   },
   bindTimeChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       time: e.detail.value
     });
@@ -50,37 +49,36 @@ Page({
     });
     this.getNearByData();
   },
-  onChangeOrderTime:function(evt){
-    if (evt.currentTarget.dataset.index =='0'){
+  onChangeOrderTime: function (evt) {
+    if (evt.currentTarget.dataset.index == '0') {
       this.setData({
         time: ''
       });
     }
-    console.log("evt.currentTarget.dataset", evt.currentTarget.dataset);
     this.setData({
       orderType: evt.currentTarget.dataset.ordertype
     });
   },
-  delFavShop: function (fkUserId,fkShopId){
+  delFavShop: function (fkUserId, fkShopId) {
     var that = this;
-    var url = 'https://www.opdar.com/booking/api/sp1/user/deleteFavShop';
+    var url = utils.BASE_URL + '/api/sp1/user/deleteFavShop';
     var data = {};
     data.fkUserId = fkUserId;
     data.fkShopId = fkShopId;
     wx.showLoading({
       mask: true
-    })
+    });
     wx.request({
       url: url,
       method: 'get',
       data: data,
       complete: function () {
-        wx.hideLoading()
+        wx.hideLoading();
       },
       success: function (reponse) {
         var newArray = [];
-        for (var i = 0; i < that.data.favouriteList.length ; i++){
-          if (that.data.favouriteList[i].id != fkShopId){
+        for (var i = 0; i < that.data.favouriteList.length; i++) {
+          if (that.data.favouriteList[i].id != fkShopId) {
             newArray.push(that.data.favouriteList[i]);
           } else {
             for (var j = 0; j < that.data.favouriteList.length; j++) {
@@ -99,11 +97,47 @@ Page({
       }
     });
   },
-  getFavShopList: function (){
+  getFavShopList: function () {
     var that = this;
-    var url = 'https://www.opdar.com/booking/api/sp1/user/getFavShopList';
+    var url = utils.BASE_URL + 'api/sp1/user/getFavShopList';
     var data = {};
     data.fkUserId = app.globalData.userEntity.id;
+    wx.showLoading({
+      mask: true
+    });
+    wx.request({
+      url: url,
+      method: 'get',
+      data: data,
+      complete: function () {
+        wx.hideLoading();
+      },
+      success: function (reponse) {
+        if (reponse.data.data == undefined)
+          return;
+        that.setData({
+          favouriteList: reponse.data.data
+        });
+        for (var i = 0; i < that.data.palceList.length; i++) {
+          for (var j = 0; j < that.data.favouriteList.length; j++) {
+            if (that.data.palceList[i].id == that.data.favouriteList[j].id) {
+              var temp = {};
+              var key = "palceList[" + i + "].isFavourite";
+              temp[key] = true;
+              that.setData(temp);
+            }
+          }
+
+        }
+      }
+    });
+  },
+  addFavShop: function (fkUserId, fkShopId, collection) {
+    var that = this;
+    var url = utils.BASE_URL + 'api/sp1/user/addFavShop';
+    var data = {};
+    data.fkUserId = fkUserId;
+    data.fkShopId = fkShopId;
     wx.showLoading({
       mask: true
     })
@@ -115,62 +149,24 @@ Page({
         wx.hideLoading()
       },
       success: function (reponse) {
-        if (reponse.data.data==undefined)
-          return;
-        that.setData({
-          favouriteList: reponse.data.data
-        });
-        for (var i = 0; i < that.data.palceList.length ; i++){
-          for (var j = 0; j < that.data.favouriteList.length;j++){
-            if (that.data.palceList[i].id == that.data.favouriteList[j].id){
-              var temp = {};
-              var key = "palceList[" + i + "].isFavourite";
-              temp[key] = true;
-              that.setData(temp);
-            }
-          }
-          
-        }
-      }
-    });
-  },
-  addFavShop: function (fkUserId, fkShopId, collection){
-    var that = this;
-    var url = 'https://www.opdar.com/booking/api/sp1/user/addFavShop';
-    var data = {};
-    data.fkUserId = fkUserId;
-    data.fkShopId = fkShopId;
-    wx.showLoading({
-      mask: true
-    })
-    wx.request({
-      url: url,
-      method: 'get',
-      data: data,
-      complete:function(){
-        wx.hideLoading()
-      },
-      success: function (reponse) {
         var d = that.data.favouriteList.concat([collection]);
         that.setData({
-          favouriteList:d
+          favouriteList: d
         });
       }
     });
 
   },
-  bindUser:function(){
+  bindUser: function () {
     var that = this;
-    var url = 'https://www.opdar.com/booking/api/sp1/user/bindUser';
+    var url = utils.BASE_URL + 'api/sp1/user/bindUser';
     var data = {};
     wx.login({
       success: function (res1) {
-        // console.log("login", res1);
-        if (res1.errMsg == "login:ok"){
+        if (res1.errMsg == "login:ok") {
           data.jsCode = res1.code;
           wx.getUserInfo({
             success: res => {
-              console.log("res.userInfo", res);
               app.globalData.userInfo = res.userInfo
               that.setData({
                 userInfo: res.userInfo,
@@ -198,16 +194,16 @@ Page({
 
             }
           });
-         
+
         }
-        
+
       }
     });
-    
+
   },
   //事件处理函数
   onNavToOrder: function () {
-    if(this.data.selectedShop==undefined){
+    if (this.data.selectedShop == undefined) {
       return;
     }
     if (!this.data.selectedShop.open) {
@@ -220,39 +216,39 @@ Page({
       url: '../order/index?shopId=' + this.data.selectedShop.id
     })
   },
-  onDeleteCollection: function (target){
+  onDeleteCollection: function (target) {
     var index = parseInt(target.currentTarget.dataset.index);
     this.delFavShop(app.globalData.userEntity.id, this.data.favouriteList[index].id);
   },
-  onCollection: function (target){
+  onCollection: function (target) {
     var data = {};
     var index = parseInt(target.currentTarget.dataset.index);
     var ret = !target.currentTarget.dataset.selected.isFavourite;
-    var key = "palceList[" + index  + "].isFavourite";
+    var key = "palceList[" + index + "].isFavourite";
     data[key] = ret;
     this.setData(data);
     var collection = this.data.palceList[index];
     // console.log("collection", collection);
-    if (!ret){
+    if (!ret) {
       this.delFavShop(app.globalData.userEntity.id, collection.id);
     } else {
       this.addFavShop(app.globalData.userEntity.id, collection.id, collection);
     }
-    
+
   },
-  onClearSearch:function(){
+  onClearSearch: function () {
     this.setData({
       searchText: ''
     });
   },
-  onChangTitle:function(target){
+  onChangTitle: function (target) {
     this.cleanSelectNearby();
     this.cleanSelectFavourite();
     this.setData({
       titleIndex: parseInt(target.currentTarget.dataset.index)
     });
   },
-  cleanSelectNearby:function(){
+  cleanSelectNearby: function () {
     for (var i = 0; i < this.data.palceList.length; i++) {
       var data = {};
       var key = "palceList[" + i + "].isSelected";
@@ -260,7 +256,7 @@ Page({
       this.setData(data);
     }
   },
-  cleanSelectFavourite:function(){
+  cleanSelectFavourite: function () {
     for (var i = 0; i < this.data.favouriteList.length; i++) {
       var data = {};
       var key = "favouriteList[" + i + "].isSelected";
@@ -276,17 +272,17 @@ Page({
     data[key] = ret;
     this.setData(data);
     console.log("onSelectNearby", target.currentTarget.dataset.selected);
-    if(ret){
+    if (ret) {
       this.setData({
         selectedShop: target.currentTarget.dataset.selected
       })
-    } else{
+    } else {
       this.setData({
-        selectedShop:null
+        selectedShop: null
       })
     }
   },
-  onSelectFavourite: function (target){
+  onSelectFavourite: function (target) {
     this.cleanSelectFavourite();
     var data = {};
     var key = "favouriteList[" + parseInt(target.currentTarget.dataset.index) + "].isSelected";
@@ -315,18 +311,18 @@ Page({
           lng: res.longitude
         });
         that.getNearByData();
-       
+
       }
     })
   },
-  getNearByData:function(){
+  getNearByData: function () {
     var that = this;
-    var url = 'https://www.opdar.com/booking/api/sp1/shop/listPage';
+    var url = utils.BASE_URL + 'api/sp1/shop/listPage';
     var data = {};
-    if(this.data.lat != undefined ){
+    if (this.data.lat != undefined) {
       data.lat = this.data.lat;
     }
-    if (this.data.lng != undefined ) {
+    if (this.data.lng != undefined) {
       data.lng = this.data.lng;
     }
     if (this.data.searchText != '') {
@@ -337,13 +333,13 @@ Page({
     })
     wx.request({
       url: url,
-      method:'get',
-      data:data,
+      method: 'get',
+      data: data,
       complete: function () {
         wx.hideLoading()
       },
       success: function (reponse) {
-        if (reponse.data.code!=0)
+        if (reponse.data.code != 0)
           return;
         var data = reponse.data.data;
         var dataArray = [];
@@ -353,7 +349,6 @@ Page({
           dataArray.push(data[i]);
         }
         that.setData({ "palceList": dataArray });
-        console.log({ "palceList": dataArray });
       }
     });
   },
@@ -363,17 +358,8 @@ Page({
     this.getLocation();
     this.bindUser();
     var date = formatTime(new Date());
-    console.log("date", date.split("-")[1]);
     this.setData({
       time: date.split("-")[1]
     });
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   }
 })
