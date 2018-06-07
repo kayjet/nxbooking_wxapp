@@ -245,7 +245,8 @@ Page({
     this.cleanSelectNearby();
     this.cleanSelectFavourite();
     this.setData({
-      titleIndex: parseInt(target.currentTarget.dataset.index)
+      titleIndex: parseInt(target.currentTarget.dataset.index),
+      selectedShop: null
     });
   },
   cleanSelectNearby: function () {
@@ -295,7 +296,7 @@ Page({
       })
     } else {
       this.setData({
-        selectedShop: undefined
+        selectedShop: null
       })
     }
   },
