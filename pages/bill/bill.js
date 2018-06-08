@@ -121,6 +121,7 @@ Page({
             complete: function (res) {
               console.log("payComplete", res);
               app.globalData.cartItems = [];
+              app.globalData.totalPrice = 0;
               that.redirectTomyOrderList();
             },
           })

@@ -242,6 +242,8 @@ Page({
 
   },
   baseAddItem: function (cartData) {
+      console.log("baseAddItem cartData",cartData);
+      console.log("baseAddItem this.data.cartItems",this.data.cartItems);
     var ret = undefined;
     if (this.data.cartItems.length == 0) {
       ret = this.data.cartItems.concat([[cartData]]);
@@ -382,8 +384,10 @@ Page({
     this.listProducts(option.shopId);
   },
   onShow: function () {
+    console.log("onShow app.globalData.cartItems",app.globalData.cartItems);
     this.setData({
-      cartItems: app.globalData.cartItems
+      cartItems: app.globalData.cartItems,
+       totalPrice: app.globalData.totalPrice
     })
   },
   onReady: function () {

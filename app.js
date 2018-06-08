@@ -35,7 +35,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
-    cartItems:[]
+      userInfo: null,
+      cartItems: [],
+      totalPrice: 0
   }
-})
+});
