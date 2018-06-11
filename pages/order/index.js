@@ -1,5 +1,6 @@
 //获取应用实例
 import utils from '../../utils/util';
+import customAnimation from '../../utils/custom-animation';
 const app = getApp();
 
 Page({
@@ -22,7 +23,8 @@ Page({
     isCataShow: false,
     specList: [],
     cataItem: "",
-    cataItemPrice: ""
+    cataItemPrice: "",
+      animationData:null
   },
   toProductPage: function (evt) {
     var data = this.data.rightData[parseInt(evt.currentTarget.dataset.index)];
@@ -33,7 +35,8 @@ Page({
   },
   closeCataory: function () {
     this.setData({
-      isCataShow: false
+      isCataShow: false,
+        animationData:customAnimation.opacityLinearOut(this,"animationData")
     })
   },
   payBill: function () {
@@ -42,7 +45,7 @@ Page({
         title: "请添加商品",
         icon: "none",
         duration: 2000
-      })
+      });
       return;
     }
     app.globalData.cartItems = this.data.cartItems;
@@ -80,7 +83,7 @@ Page({
           var innerClass = that.data.scrollQueue.shift();
           innerClass.call(that);
         }
-      }, 1000);
+      }, 1500);
     }
 
   },
@@ -223,11 +226,11 @@ Page({
           specList: [relSpecList[i].specList[0]]
         });
       }
-
       this.setData({
         specList: relSpecList,
         isCataShow: true,
-        cataItem: tData
+        cataItem: tData,
+        animationData:customAnimation.opacityLinearIn(this,"animationData")
       });
       this.checkSpecPrice();
       return;

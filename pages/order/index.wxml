@@ -61,7 +61,7 @@
     </view>
   </view>
   <view class='modal {{isCartDetailShow? "":"disabled"}} ' ></view>
-    <view class='cart'>
+    <view class='cart' >
       <view class='left' bindtap='showCartDetail'>
         <image src='../../images/cart.png' class='cart-icon' width='30'></image>
         <view class='txt {{cartItems.length==0?"disabled":""}}'>
@@ -78,7 +78,7 @@
 
     </view>
   
-  <view class='catagory' wx:if="{{isCataShow}}">
+  <view class='catagory' wx:if="{{isCataShow}}" animation="{{animationData}}">
     <view class='wrapper'>
       <view class='title'>
         <text>{{cataItem.title}}</text>
