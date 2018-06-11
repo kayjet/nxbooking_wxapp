@@ -19,7 +19,9 @@
           <view class='price'>￥{{item.price}}</view>
           <view class='but-container' mode='center'>
             <view class='button' bindtap='addItem' data-data="{{item}}">
-              <image src='../../images/add.png' class='add'></image>
+
+              <image src='../../images/add.png' wx:if="{{item.relSpecList.length==0}}" class='add'></image>
+              <view class="chosen" wx:else>选规格</view>
             </view>
           </view>
         </view>
