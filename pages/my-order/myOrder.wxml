@@ -36,11 +36,11 @@
         </swiper-item>
         <swiper-item>
           <view class='line title'>订单详情</view>
-          <view class='line ' wx:if="{{orderDetail.orderType === 2}}">
+          <view class='line ' wx:if="{{orderDetail.orderType == '2'}}">
             <view class='left'>取餐时间</view>
             <view class='right'>{{orderDetail.orderTime}}</view>
           </view>
-          <view class='line '>
+          <view class='line ' wx:hidden="{{orderDetail.orderStatus == '3'}}">
             <view class='left'>取餐门店</view>
             <view class='right'>{{shopDetail.name}}</view>
           </view>
