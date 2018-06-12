@@ -310,7 +310,7 @@ Page({
       price = cartData.price;
     }
     this.setData({
-      totalPrice: this.data.totalPrice += price
+      totalPrice: utils.math.accAdd(this.data.totalPrice,price)
     });
   },
   showCartDetail: function () {
