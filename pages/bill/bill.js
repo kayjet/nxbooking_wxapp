@@ -1,7 +1,7 @@
 //bill.js
 //获取应用实例
 import utils from '../../utils/util';
-const app = getApp()
+const app = getApp();
 
 Page({
   data: {
@@ -46,7 +46,7 @@ Page({
         title: "请正确填写手机号",
         icon: "none",
         duration: 2000
-      })
+      });
       return;
     }
 //获取应用实例
@@ -55,7 +55,7 @@ Page({
         title: "请正确填写手机号",
         icon: "none",
         duration: 2000
-      })
+      });
       return;
     }
     var that = this;
@@ -73,7 +73,7 @@ Page({
     var requestData = app.globalData.cartItems;
     wx.showLoading({
       mask: true
-    })
+    });
     wx.request({
       url: url,
       method: 'post',
@@ -91,7 +91,11 @@ Page({
             icon: 'none',
             duration: 1500,
             mask: true
-          })
+          });
+            try {
+                wx.setStorageSync('cachemobile',  that.data.phone);
+            } catch (e) {
+            }
           wx.requestPayment({
             timeStamp: reponse.data.data.timeStamp,
             nonceStr: reponse.data.data.nonceStr,
@@ -122,6 +126,7 @@ Page({
               console.log("payComplete", res);
               app.globalData.cartItems = [];
               app.globalData.totalPrice = 0;
+
               that.redirectTomyOrderList();
             },
           })
@@ -131,6 +136,16 @@ Page({
   },
   onLoad: function () {
     var that = this;
+      try {
+          var value = wx.getStorageSync('cachemobile');
+          console.log("cachemobile",value);
+          if (value) {
+              that.setData({
+                  phone:value
+              });
+          }
+      } catch (e) {
+      }
     that.setData({
       cartItems: app.globalData.cartItems,
       totalPrice: app.globalData.totalPrice,

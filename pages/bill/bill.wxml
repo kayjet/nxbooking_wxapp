@@ -8,7 +8,7 @@
     <view class='left'>联系方式 <text style='color:red;'>*</text> </view>
     <view class='right'>
       <image src='../../images/mobilephone_fill.png' class='phone-icon'></image>
-      <input class='input' type='tel' bindinput="bindKeyInput" ></input>
+      <input class='input' value="{{phone}}" type='tel' bindinput="bindKeyInput" ></input>
     </view>
     
   </view>
