@@ -25,7 +25,7 @@
         <view>
           <text>{{item.name}}</text>
           <text class='open-time' wx:if="{{!item.open}}">  营业时间{{item.openTime}}-{{item.closeTime}}  </text>
-          <text class='txt right'>{{item.distance}}米</text>
+         <text class='txt right'>{{item.distance}}</text> 
         </view>
         <view style='margin-top:8rpx;' class='address'>
           <text style='color:#ccc;'>{{item.address}}</text>

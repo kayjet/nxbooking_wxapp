@@ -331,13 +331,13 @@ Page({
     }
     wx.showLoading({
       mask: true
-    })
+    });
     wx.request({
       url: url,
       method: 'get',
       data: data,
       complete: function () {
-        wx.hideLoading()
+        wx.hideLoading();
       },
       success: function (reponse) {
         if (reponse.data.code != 0)
@@ -347,6 +347,11 @@ Page({
         for (var i = 0; i < data.length; i++) {
           data[i].isFavourite = false;
           data[i].isSelected = false;
+          if( data[i].distance >=1000){
+              data[i].distance = ( data[i].distance / 1000).toFixed(2) +" 千米";
+          } else {
+              data[i].distance =  data[i].distance.toFixed(2) +" 米";
+          }
           dataArray.push(data[i]);
         }
         that.setData({ "palceList": dataArray });
