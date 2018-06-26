@@ -69,23 +69,19 @@ Page({
 
   },
   checkScrolling: function (scrollHandler) {
-    var that = this;
-    if (that.data.scrollQueue.length == 2) {
-      that.data.scrollQueue[1] = scrollHandler;
-    } else {
-      that.data.scrollQueue.push(scrollHandler);
-    }
-    if (that.data.timeoutFlag == undefined) {
-      that.data.timeoutFlag = setInterval(function () {
-        if (that.data.scrollQueue.length == 0)
+      var that = this;
+      if (that.data.scrollQueue.length != 0) {
           return;
-        for (var i = 0; i < that.data.scrollQueue.length; i++) {
+      }
+      that.data.scrollQueue[0] = scrollHandler;
+      if (that.data.timeoutFlag != undefined) {
+          clearTimeout(that.data.timeoutFlag);
+          that.data.timeoutFlag = undefined;
+      }
+      that.data.timeoutFlag = setTimeout(function () {
           var innerClass = that.data.scrollQueue.shift();
           innerClass.call(that);
-        }
-      }, 1500);
-    }
-
+      }, 2000);
   },
   scrollRight: function (event) {
     var that = this;
@@ -245,58 +241,56 @@ Page({
 
   },
   baseAddItem: function (cartData) {
-      console.log("baseAddItem cartData",cartData);
-      console.log("baseAddItem this.data.cartItems",this.data.cartItems);
-    var ret = undefined;
-    if (this.data.cartItems.length == 0) {
-      ret = this.data.cartItems.concat([[cartData]]);
-    } else {
-      ret = this.data.cartItems;
-      var flag = -1;
-      var flag2 = -1;
-      for (var i = 0; i < ret.length; i++) {
-        for (var j = 0; j < ret[i].length; j++) {
-          var step1 = cartData.requestSpecList.length == ret[i][j].requestSpecList.length;
-          var step2 = false;
-          if (step1) {
-            if (cartData.requestSpecList.length == 0) {
-              step2 = true;
-            } else {
-              var boolArray = [];
-              for (var k = 0; k < cartData.requestSpecList.length; k++) {
-                if (cartData.requestSpecList[k].specList[0].code == ret[i][j].requestSpecList[k].specList[0].code) {
-                  boolArray.push(true);
-                  // step2 = true;
-                } else {
-                  boolArray.push(false);
-                  // step2 = false;
-                }
-              }
-
-              for (var z = 0; z < boolArray.length; z++) {
-                if (!boolArray[z]) {
-                  step2 = false;
-                  break;
-                } else {
-                  step2 = true;
-                }
-              }
-            }
-
-          }
-
-          if (ret[i][j].id == cartData.id && step1 && step2) {
-            flag = j;z
-            flag2 = i;
-            break;
-          }
-        }
-      }
-      if (flag == -1) {
-        ret = ret.concat([[cartData]]);
+      var ret = undefined;
+      if (this.data.cartItems.length == 0) {
+          ret = this.data.cartItems.concat([[cartData]]);
       } else {
-        ret[flag2].push(cartData);
-      }
+          ret = this.data.cartItems;
+          var flag = -1;
+          var flag2 = -1;
+          for (var i = 0; i < ret.length; i++) {
+              for (var j = 0; j < ret[i].length; j++) {
+                  var step1 = cartData.requestSpecList.length == ret[i][j].requestSpecList.length;
+                  var step2 = false;
+                  if (step1) {
+                      if (cartData.requestSpecList.length == 0) {
+                          step2 = true;
+                      } else {
+                          var boolArray = [];
+                          for (var k = 0; k < cartData.requestSpecList.length; k++) {
+                              if (cartData.requestSpecList[k].specList[0].code == ret[i][j].requestSpecList[k].specList[0].code) {
+                                  boolArray.push(true);
+                                  // step2 = true;
+                              } else {
+                                  boolArray.push(false);
+                                  // step2 = false;
+                              }
+                          }
+
+                          for (var z = 0; z < boolArray.length; z++) {
+                              if (!boolArray[z]) {
+                                  step2 = false;
+                                  break;
+                              } else {
+                                  step2 = true;
+                              }
+                          }
+                      }
+
+                  }
+
+                  if (ret[i][j].id == cartData.id && step1 && step2) {
+                      flag = j;
+                      flag2 = i;
+                      break;
+                  }
+              }
+          }
+          if (flag == -1) {
+              ret = ret.concat([[cartData]]);
+          } else {
+              ret[flag2].push(cartData);
+          }
 
     }
 
@@ -342,7 +336,7 @@ Page({
     var that = this;
     wx.showLoading({
       mask: true
-    })
+    });
     wx.request({
       url: url,
       method: 'get',
