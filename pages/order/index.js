@@ -286,7 +286,7 @@ Page({
           }
 
           if (ret[i][j].id == cartData.id && step1 && step2) {
-            flag = j;
+            flag = j;z
             flag2 = i;
             break;
           }

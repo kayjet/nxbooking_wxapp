@@ -129,13 +129,13 @@
 .bottom-container .title{
   padding: 20rpx;
   border-bottom: 1px solid #9fc03a;
-  font-size: 16px;
+  font-size: 14px;
 }
 .bottom-container .content{
   padding: 20rpx;
 }
 .bottom-container .content .item{
-  font-size: 14px;
+  font-size: 12px;
   padding-bottom: 20rpx;
   position: relative;
 }
