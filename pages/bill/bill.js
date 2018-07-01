@@ -35,11 +35,6 @@ Page({
             isCartDetailShow: ret
         });
     },
-    createOrder: function () {
-        if (this.data.phone == undefined || phone.data.phone.length != 11) {
-
-        }
-    },
     payBill: function () {
         if (this.data.selectedShop == undefined) {
 
@@ -66,7 +61,7 @@ Page({
         // String shopId, String userId, String concatPhone, String totalPrice, String orderTyp
         var shopId = app.globalData.selectedShop.id;
         var userId = app.globalData.userEntity.id;
-        var concatPhone = this.data.phone;
+        var concatPhone = that.data.phone;
         var totalPrice = app.globalData.totalPrice;
         var orderTyp = app.globalData.orderType;
         var url = utils.BASE_URL + 'api/sp3/order/makeOrder?shopId=' + shopId
@@ -155,4 +150,4 @@ Page({
             selectedShop: app.globalData.selectedShop
         })
     }
-})
+});

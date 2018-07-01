@@ -136,6 +136,8 @@ page{
 .catagory .wrapper .content{
   font-size: 14px;
  padding: 28rpx;
+ max-height: 400rpx;
+ overflow-y: scroll;
 }
 .catagory .wrapper .bottom{
   background: #9fc03a;
@@ -162,8 +164,10 @@ page{
   border-radius: 24rpx;
   padding:12rpx;
   border:1px solid #ccc;
-  margin-left: 24rpx;
+  margin-right: 24rpx;
   font-size: 12px;
+  display: inline-block;
+  margin-bottom: 12rpx;
 }
 .catagory .wrapper .cata-child:first-child{
   margin-left: 0px;

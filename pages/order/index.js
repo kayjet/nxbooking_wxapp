@@ -69,6 +69,7 @@ Page({
 
   },
   checkScrolling: function (scrollHandler) {
+   
       var that = this;
       if (that.data.scrollQueue.length != 0) {
           return;
@@ -81,11 +82,14 @@ Page({
       that.data.timeoutFlag = setTimeout(function () {
           var innerClass = that.data.scrollQueue.shift();
           innerClass.call(that);
-      }, 2000);
+      }, 1000);
   },
   scrollRight: function (event) {
     var that = this;
-    that.data.scrollTop = event.detail.scrollTop;
+    // that.data.scrollTop = event.detail.scrollTop;
+    this.setData({
+      "scrollTop": event.detail.scrollTop
+    });
     function innerClass() {
       for (var i = 0; i < this.data.domQuery.length; i++) {
         if (this.data.scrollTop <= this.data.domQuery[i].top) {
@@ -374,6 +378,13 @@ Page({
           leftData: leftData,
           rightData: rightData
         });
+        for (let i = 0; i < that.data.rightScrollViewCount.length; i++) {
+          let query = wx.createSelectorQuery();
+          var index = that.data.rightScrollViewCount[i];
+          query.select('#rightId' + index).boundingClientRect((rect) => {
+            that.data.domQuery.push(rect);
+          }).exec();
+        }
       }
     });
   },
@@ -388,13 +399,6 @@ Page({
     })
   },
   onReady: function () {
-    let that = this;
-    for (let i = 0; i < that.data.rightScrollViewCount.length; i++) {
-      let query = wx.createSelectorQuery();
-      var index = that.data.rightScrollViewCount[i];
-      query.select('#rightId' + index).boundingClientRect((rect) => {
-        that.data.domQuery.push(rect);
-      }).exec()
-    }
+    
   }
 })
