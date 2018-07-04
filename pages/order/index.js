@@ -140,7 +140,7 @@ Page({
     if (evt.currentTarget.dataset.data.totallyPrice) {
       price = evt.currentTarget.dataset.data.totallyPrice;
     } else {
-      price = evt.currentTarget.dataset.data.price;
+      price = evt.currentTarget.dataset.data.finalPrice;
     }
     this.setData({
       totalPrice: this.data.totalPrice -= price
@@ -156,7 +156,7 @@ Page({
     if (evt.currentTarget.dataset.data.totallyPrice) {
       price = evt.currentTarget.dataset.data.totallyPrice;
     } else {
-      price = evt.currentTarget.dataset.data.price;
+      price = evt.currentTarget.dataset.data.finalPrice;
     }
     this.setData({
       totalPrice: this.data.totalPrice += price
@@ -201,7 +201,7 @@ Page({
       specPrice += this.data.cataItem.requestSpecList[i].specList[0].price;
     }
     var item = this.data.cataItem;
-    item.totallyPrice = this.data.cataItem.price + specPrice;
+    item.totallyPrice = this.data.cataItem.finalPrice + specPrice;
     this.setData({
       cataItem: item
     })
@@ -212,7 +212,7 @@ Page({
     for (var i = 0; i < cartData.requestSpecList.length; i++) {
       specPrice += cartData.requestSpecList[i].specList[0].price;
     }
-    cartData.totallyPrice = cartData.price + specPrice;
+    cartData.totallyPrice = cartData.finalPrice + specPrice;
     this.baseAddItem(cartData);
   },
   addItem: function (evt) {
@@ -248,7 +248,7 @@ Page({
     for (var i = 0; i < cartData.requestSpecList.length; i++) {
       specPrice += cartData.requestSpecList[i].specList[0].price;
     }
-    cartData.totallyPrice = cartData.price + specPrice;
+    cartData.totallyPrice = cartData.finalPrice + specPrice;
     this.baseAddItem(cartData);
 
   },
@@ -313,7 +313,7 @@ Page({
     if (cartData.totallyPrice) {
       price = cartData.totallyPrice;
     } else {
-      price = cartData.price;
+      price = cartData.finalPrice;
     }
     this.setData({
       totalPrice: utils.math.accAdd(this.data.totalPrice,price)

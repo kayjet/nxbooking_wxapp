@@ -16,7 +16,7 @@
         <image src='{{item.pic}}' class='left' bindtap='toProductPage' data-index='{{index}}'></image>
         <view class='right'>
           <view class='title'>{{item.title}}</view>
-          <view class='price'>￥{{item.price}}</view>
+          <view class='price'>￥{{item.finalPrice}}</view>
           <view class='but-container' mode='center'>
             <view class='button' bindtap='addItem' data-data="{{item}}">
 
@@ -38,12 +38,12 @@
     <view class='bottom {{isCartDetailShow? "":"disabled"}}'>
       <view class='item' wx:for="{{cartItems}}">
         <view class='title'>{{item[0].title}}</view>
-        <view class='price'>￥{{item[0].price * item.length}}</view>
+        <view class='price'>￥{{item[0].finalPrice * item.length}}</view>
         <view style='font-size:12px;' wx:if="{{item[0].requestSpecList.length !=0}}" class="">
           >>
           <block wx:for="{{item[0].requestSpecList}}" wx:for-item="spec">
             <text class='cata-txt' wx:for="{{spec.specList}}" wx:for-item="s">
-              {{s.name}}  <text wx:if="{{s.price!=0}}">+{{s.price}}</text>
+              {{s.name}}  <text wx:if="{{s.finalPrice!=0}}">+{{s.finalPrice}}</text>
             </text>
           </block>
         </view>
@@ -79,7 +79,6 @@
 
 
     </view>
-  
   <view class='catagory' wx:if="{{isCataShow}}" animation="{{animationData}}" bindtap='closeCataModal' id='cataCataModal'>
     <view class='wrapper' id='cataWrapper'>
       <view class='title'>
@@ -97,7 +96,7 @@
       <view class='bottom'>
         <view class='left'>
           <view style='padding-left:24rpx;' wx:if="{{cataItem.totallyPrice}}">￥{{cataItem.totallyPrice}}</view>
-          <view style='padding-left:24rpx;' wx:if="{{!cataItem.totallyPrice}}">￥{{cataItem.price}}</view>
+          <view style='padding-left:24rpx;' wx:if="{{!cataItem.totallyPrice}}">￥{{cataItem.finalPrice}}</view>
         </view>
         <view class='right' bindtap='addSpecIntoCart'>加入购物车</view>
       </view>
