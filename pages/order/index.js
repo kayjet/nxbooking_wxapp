@@ -24,7 +24,15 @@ Page({
     specList: [],
     cataItem: "",
     cataItemPrice: "",
-      animationData:null
+    animationData:null
+  },
+  closeCataModal: function (evt){
+ 
+    if (evt.target.id =='cataCataModal'){
+      this.setData({
+        isCataShow:false
+      })
+    }
   },
   toProductPage: function (evt) {
     var data = this.data.rightData[parseInt(evt.currentTarget.dataset.index)];

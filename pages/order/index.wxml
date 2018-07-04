@@ -80,8 +80,8 @@
 
     </view>
   
-  <view class='catagory' wx:if="{{isCataShow}}" animation="{{animationData}}">
-    <view class='wrapper'>
+  <view class='catagory' wx:if="{{isCataShow}}" animation="{{animationData}}" bindtap='closeCataModal' id='cataCataModal'>
+    <view class='wrapper' id='cataWrapper'>
       <view class='title'>
         <text>{{cataItem.title}}</text>
         <image src='../../images/close.png' class='close' bindtap='closeCataory'></image>
