@@ -44,6 +44,7 @@ page{
 .sv-right .item{
   height: 300rpx;
   border-bottom: 1px solid #ccc;
+  font-size: 28rpx;
 }
 .sv-right .item .left{
   float: left;
@@ -60,13 +61,14 @@ page{
 .sv-right .item .right .title{
   padding-top: 28rpx;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 28rpx;
   margin-right:30rpx;
 }
 .sv-right .item .right .price{
    padding-top: 40rpx;
   color: #9fc03a;
-  font-size: 18px;
+  font-size: 40rpx;
+  font-weight: bold;
   margin-right:34rpx;
 }
 .sv-right .item .right .button{
@@ -177,9 +179,30 @@ page{
   color: #9fc03a;
   border: 1px solid #9fc03a;
 }
+.cart-detail .bottom .item .title{
+  font-size: 32rpx;
+}
+.cart-detail .bottom .item .wrapper{
+  display: flex;
+  justify-content : space-between;
+  flex-wrap: nowrap; 
+  height: 80rpx;
+  font-size: 32rpx;
+  align-items:center;
+}
 .cata-txt{
+  /* display: inline-block; */
+  font-size: 28rpx;
+  color: #ccc;
+  height:30rpx;
   display: inline-block;
-  border-radius: 12rpx;
-  margin-left: 12rpx;
-  line-height: 14px;
+}
+.last-cata{
+  position: relative;
+}
+.last-cata::after{
+  content: ' ， ';
+}
+.last-cata:last-child::after{
+  content: '';
 }

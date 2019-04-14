@@ -16,7 +16,8 @@
         <image src='{{item.pic}}' class='left' bindtap='toProductPage' data-index='{{index}}'></image>
         <view class='right'>
           <view class='title'>{{item.title}}</view>
-          <view class='price'>￥{{item.finalPrice}}</view>
+          <view class='price'>
+            <text style='font-size:28rpx;'>￥</text>{{item.finalPrice}}</view>
           <view class='but-container' mode='center'>
             <view class='button' bindtap='addItem' data-data="{{item}}">
 
@@ -37,18 +38,11 @@
     </view>
     <view class='bottom {{isCartDetailShow? "":"disabled"}}'>
       <view class='item' wx:for="{{cartItems}}">
-        <view class='title'>{{item[0].title}}</view>
-        <view class='price'>￥{{item[0].finalPrice * item.length}}</view>
-        <view style='font-size:12px;' wx:if="{{item[0].requestSpecList.length !=0}}" class="">
-          >>
-          <block wx:for="{{item[0].requestSpecList}}" wx:for-item="spec">
-            <text class='cata-txt' wx:for="{{spec.specList}}" wx:for-item="s">
-              {{s.name}}  <text wx:if="{{s.finalPrice!=0}}">+{{s.finalPrice}}</text>
-            </text>
-          </block>
-        </view>
-        <view class='select'>
-          <view class='inner'>
+        <view class='wrapper'>
+          <view class='title'>{{item[0].title}}</view>
+          <view class='select'>
+            <view style='color:#9fc03a;'>
+              <text style='font-size:24rpx;'>￥</text>{{item[0].finalPrice * item.length}}</view>
             <view class='button left'>
               <image src='../../images/min.png' data-data="{{item[0]}}" data-index="{{index}}" bindtap='onMinItem' class='add'></image>
             </view>
@@ -58,27 +52,36 @@
             </view>
           </view>
         </view>
+        <view wx:if="{{item[0].requestSpecList.length !=0}}" style='line-height:1;'>
+          <block wx:for="{{item[0].requestSpecList}}" wx:for-item="spec">
+            <block wx:for="{{spec.specList}}" wx:for-item="s">
+              <text class='cata-txt'>{{s.name}}</text>
+              <text class='cata-txt last-cata' style='margin: 0 8rpx;' wx:if="{{s.price}}">+{{s.price}}元</text>
+            </block>
+          </block>
+        </view>
+
       </view>
 
     </view>
   </view>
-  <view class='modal {{isCartDetailShow? "":"disabled"}} ' ></view>
-    <view class='cart' >
-      <view class='left' bindtap='showCartDetail'>
-        <image src='../../images/cart.png' class='cart-icon' width='30'></image>
-        <view class='txt {{cartItems.length==0?"disabled":""}}'>
-          <text style='font-size:18px;'>￥</text> {{totalPrice}}</view>
-        <view class='txt  {{cartItems.length==0?"":"disabled"}}'>--.--</view>
-      </view>
-      <view class='right'>
-        <view class='order-button' bindtap="payBill" hover-class="other-button-hover">
-          <text style='margin-left:30rpx;'>选好了</text>
-          <image src='../../images/arrow_right.png' class='right-arrow'></image>
-        </view>
-      </view>
-
-
+  <view class='modal {{isCartDetailShow? "":"disabled"}} '></view>
+  <view class='cart'>
+    <view class='left' bindtap='showCartDetail'>
+      <image src='../../images/cart.png' class='cart-icon' width='30'></image>
+      <view class='txt {{cartItems.length==0?"disabled":""}}'>
+        <text style='font-size:18px;'>￥</text><text style='font-weight:bold;'>{{totalPrice}}</text></view>
+      <view class='txt  {{cartItems.length==0?"":"disabled"}}'>--.--</view>
     </view>
+    <view class='right'>
+      <view class='order-button' bindtap="payBill" hover-class="other-button-hover">
+        <text style='margin-left:30rpx;'>选好了</text>
+        <image src='../../images/arrow_right.png' class='right-arrow'></image>
+      </view>
+    </view>
+
+
+  </view>
   <view class='catagory' wx:if="{{isCataShow}}" animation="{{animationData}}" bindtap='closeCataModal' id='cataCataModal'>
     <view class='wrapper' id='cataWrapper'>
       <view class='title'>
@@ -95,7 +98,10 @@
       </view>
       <view class='bottom'>
         <view class='left'>
-          <view style='padding-left:24rpx;' wx:if="{{cataItem.totallyPrice}}">￥{{cataItem.totallyPrice}}</view>
+          <view style='padding-left:24rpx;' wx:if="{{cataItem.totallyPrice}}">
+          <text style='font-size:28rpx;'>￥</text>
+          <text style='font-weight:bold;'>{{cataItem.totallyPrice}}</text>
+          </view>
           <view style='padding-left:24rpx;' wx:if="{{!cataItem.totallyPrice}}">￥{{cataItem.finalPrice}}</view>
         </view>
         <view class='right' bindtap='addSpecIntoCart'>加入购物车</view>

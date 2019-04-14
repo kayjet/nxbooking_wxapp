@@ -13,9 +13,7 @@ Page({
     leftIndex: 0,
     titleIndex: 0,
     domQuery: [],
-    timeoutFlag: undefined,
     scrollTop: 0,
-    scrollQueue: [],
     cartItems: [],
     totalPrice: 0,
     rightScrollViewCount: [],
@@ -79,18 +77,14 @@ Page({
   checkScrolling: function (scrollHandler) {
    
       var that = this;
-      if (that.data.scrollQueue.length != 0) {
-          return;
-      }
-      that.data.scrollQueue[0] = scrollHandler;
-      if (that.data.timeoutFlag != undefined) {
-          clearTimeout(that.data.timeoutFlag);
-          that.data.timeoutFlag = undefined;
+      if (that.data.timeoutFlag!= undefined){
+        clearTimeout(that.data.timeoutFlag);
+        that.data.timeoutFlag = undefined;
+        return;
       }
       that.data.timeoutFlag = setTimeout(function () {
-          var innerClass = that.data.scrollQueue.shift();
-          innerClass.call(that);
-      }, 1000);
+        scrollHandler.call(that);
+      }, 0);
   },
   scrollRight: function (event) {
     var that = this;
@@ -101,6 +95,9 @@ Page({
     function innerClass() {
       for (var i = 0; i < this.data.domQuery.length; i++) {
         if (this.data.scrollTop <= this.data.domQuery[i].top) {
+          if (this.data.toLeftViewId == ('leftId' + i)){
+            break;
+          }
           this.cleanSelectLeft();
           var data = {};
           var key = "leftData[" + i + "].isActive";
@@ -148,6 +145,7 @@ Page({
   },
   onAddItemOnceMore: function (evt) {
     var ret = this.data.cartItems;
+    console.log("ret", ret);
     ret[evt.currentTarget.dataset.index].push(evt.currentTarget.dataset.data);
     this.setData({
       cartItems: ret
@@ -214,6 +212,9 @@ Page({
     }
     cartData.totallyPrice = cartData.finalPrice + specPrice;
     this.baseAddItem(cartData);
+    this.setData({
+      isCataShow:false
+    });
   },
   addItem: function (evt) {
 
@@ -329,14 +330,17 @@ Page({
     });
   },
   onClickLeftItem: function (target) {
-    if (this.data.scrollQueue.length > 0) {
-      this.data.scrollQueue = [];
+    let that = this;
+    if (that.data.timeoutFlag != undefined) {
+      clearTimeout(that.data.timeoutFlag);
+      that.data.timeoutFlag = undefined;
+      return;
     }
-    this.cleanSelectLeft();
-    var data = {};
-    var key = "leftData[" + parseInt(target.currentTarget.dataset.index) + "].isActive";
-    data[key] = true;
-    this.setData(data);
+    // this.cleanSelectLeft();
+    // var data = {};
+    // var key = "leftData[" + parseInt(target.currentTarget.dataset.index) + "].isActive";
+    // data[key] = true;
+    // this.setData(data);
     var toId = 'rightId' + this.data.leftData[target.currentTarget.dataset.index].toViewId;
     this.setData({
       scrollToViewId: toId
