@@ -7,11 +7,8 @@
   position: relative;
 }
 .wx-pay-icon{
-  position: absolute;
-  right: 0;
-  width: 160rpx;
-  height: 120rpx;
-  top: 0rpx;
+  width: 100rpx;
+  height: 80rpx;
 }
 .line .pay{
   font-size: 16px;
@@ -43,9 +40,11 @@
 
 }
 .pay{
-  padding-top:40rpx;
-  padding-bottom: 40rpx; 
-  font-size: 16px;
+  font-size: 32rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .phone-icon{
   width: 60rpx;

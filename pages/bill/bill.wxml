@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <view class='line'>
+  <view class='line' style='border-top:#eeeeee 1px solid;'>
       <view>门店名称：{{selectedShop.name}}</view>
       <view>门店地址：{{selectedShop.address}}</view>
   </view> 
