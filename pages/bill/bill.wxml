@@ -1,16 +1,17 @@
 <!--index.wxml-->
 <view class="container">
   <view class='line'>
-      <view>门店名称：{{selectedShop.name}}</view>
-      <view>门店地址：{{selectedShop.address}}</view>
-  </view> 
+    <view>门店名称：{{selectedShop.name}}</view>
+    <view>门店地址：{{selectedShop.address}}</view>
+  </view>
   <view class='line concat'>
-    <view class='left'>联系方式 <text style='color:red;'>*</text> </view>
+    <view class='left'>联系方式
+      <text style='color:red;'>*</text> </view>
     <view class='right'>
       <image src='../../images/mobilephone_fill.png' class='phone-icon'></image>
-      <input class='input' value="{{phone}}" type='tel' bindinput="bindKeyInput" ></input>
+      <input class='input' value="{{phone}}" type='tel' bindinput="bindKeyInput"></input>
     </view>
-    
+
   </view>
   <view class='line pay'>
     <view>
@@ -21,34 +22,55 @@
 
 
 
-<view class='cart-detail {{cartItems.length==0?"disabled":""}}'>
-  <view class='top' bindtap='showCartDetail'>
-    <view class='arrow-top-container'>
-      <image src='../../images/arrow_top.png' class='{{isCartDetailShow? "disabled":""}}'></image>
-      <image src='../../images/arrow_bottom.png' class='{{isCartDetailShow? "":"disabled"}}'></image>
+  <view class='cart-detail {{cartItems.length==0?"disabled":""}}'>
+    <view class='top' bindtap='showCartDetail'>
+      <view class='arrow-top-container'>
+        <image src='../../images/arrow_top.png' class='{{isCartDetailShow? "disabled":""}}'></image>
+        <image src='../../images/arrow_bottom.png' class='{{isCartDetailShow? "":"disabled"}}'></image>
+      </view>
+    </view>
+    <view class='bottom {{isCartDetailShow? "":"disabled"}}'>
+      <view class='item' wx:for="{{cartItems}}">
+        <view class='wrapper'>
+          <view class='title'>
+            <text>{{item[0].title}}</text>
+            <text> * {{item.length}}</text>
+          </view>
+          <view class='select' style='justify-content:flex-end;font-size:32rpx;'>
+            <view style='color:#9fc03a;'>
+              <text style='font-size:28rpx;'>￥</text>
+              <text style='font-weight:bold;'>{{item[0].finalPrice * item.length}}</text>
+            </view>
+          </view>
+        </view>
+        <view wx:if="{{item[0].requestSpecList.length !=0}}" style='line-height:1;'>
+          <block wx:for="{{item[0].requestSpecList}}" wx:for-item="spec">
+            <block wx:for="{{spec.specList}}" wx:for-item="s">
+              <text class='cata-txt'>{{s.name}}</text>
+              <text class='cata-txt last-cata' style='margin: 0 8rpx;' wx:if="{{s.price}}">+{{s.price}}元</text>
+            </block>
+          </block>
+        </view>
+
+      </view>
+
     </view>
   </view>
-  <view class='bottom {{isCartDetailShow? "":"disabled"}}' >
-    <view class='item' wx:for="{{cartItems}}" >
-      <view class='title'>{{item[0].title}}  <text>X {{item.length}}</text></view>
-      <view class='price'>￥{{item[0].price * item.length}}</view>
-      
+  <view class='cart'>
+    <view class='left' bindtap='showCartDetail'>
+      <image src='../../images/cart.png' class='cart-icon' width='30'></image>
+      <view class='txt {{cartItems.length==0?"disabled":""}}'>
+        <text style='font-size:18px;'>￥</text>
+        <text style='font-weight:bold;'>{{totalPrice}}</text>
+      </view>
+      <view class='txt  {{cartItems.length==0?"":"disabled"}}'>--.--</view>
     </view>
-    
+    <view class='right'>
+      <view class='order-button' bindtap="payBill" hover-class="other-button-hover">
+        <text style='margin-left:30rpx;'>提交订单</text>
+        <image src='../../images/arrow_right.png' class='right-arrow'></image>
+      </view>
+    </view>
   </view>
-</view>
-<view class='cart' >
- <view class='left' bindtap='showCartDetail'>
-   <image src='../../images/cart.png' class='cart-icon' width='30'></image>
-    <view class='txt {{cartItems.length==0?"disabled":""}}'>￥{{totalPrice}}</view>
-    <view class='txt  {{cartItems.length==0?"":"disabled"}}'>--.--</view>
- </view>
- <view class='right'>
-  <view class='order-button'  bindtap="payBill" hover-class="other-button-hover">
-    <text style='margin-left:30rpx;'>提交订单</text>
-    <image src='../../images/arrow_right.png' class='right-arrow'></image>
-  </view>
- </view>  
-</view>
 
 </view>

@@ -61,22 +61,28 @@ page{
 .sv-right .item .right .title{
   padding-top: 28rpx;
   font-weight: bold;
-  font-size: 28rpx;
-  margin-right:30rpx;
+  font-size: 26rpx;
+  margin-right:14rpx;
+  text-align: right;
+  overflow: hidden;
+  height: 70rpx;
 }
 .sv-right .item .right .price{
-   padding-top: 40rpx;
   color: #9fc03a;
   font-size: 40rpx;
   font-weight: bold;
-  margin-right:34rpx;
+  margin-right:18rpx;
+  height: 120rpx;
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
 }
 .sv-right .item .right .button{
   padding: 0px;
-  min-width: 50rpx;
-  min-height: 50rpx;
-  border-radius: 50rpx;
-  line-height: 42rpx;
+  min-width: 44rpx;
+  min-height: 44rpx;
+  border-radius: 44rpx;
+  line-height: 44rpx;
   color: #9fc03a;
   background: #fff;
   display: inline-block;
@@ -85,8 +91,8 @@ page{
 .but-container{
   position: absolute;
   width: 100%;
-  bottom: 30rpx;
-  right:36rpx;
+  bottom: 18rpx;
+  right:18rpx;
 }
 .but-container .add{
   width:64rpx;
@@ -178,31 +184,4 @@ page{
 .catagory .wrapper .cata-child.active{
   color: #9fc03a;
   border: 1px solid #9fc03a;
-}
-.cart-detail .bottom .item .title{
-  font-size: 32rpx;
-}
-.cart-detail .bottom .item .wrapper{
-  display: flex;
-  justify-content : space-between;
-  flex-wrap: nowrap; 
-  height: 80rpx;
-  font-size: 32rpx;
-  align-items:center;
-}
-.cata-txt{
-  /* display: inline-block; */
-  font-size: 28rpx;
-  color: #ccc;
-  height:30rpx;
-  display: inline-block;
-}
-.last-cata{
-  position: relative;
-}
-.last-cata::after{
-  content: ' ， ';
-}
-.last-cata:last-child::after{
-  content: '';
 }

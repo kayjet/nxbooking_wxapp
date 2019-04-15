@@ -1,4 +1,15 @@
 <!--index.wxml-->
+<wxs module="formatter">
+  var bar = function (d) {
+  var index = d.indexOf('（');
+  if( index <3){
+    return d;
+  }
+  var strArr = d.split('（');
+  return  strArr[0]+'\n（'+strArr[1];
+}; module.exports = { format : bar, }
+</wxs>
+
 <view class="container">
 
   <view class='scroll'>
@@ -15,7 +26,7 @@
       <view class="item" wx:for="{{rightData}}" id='rightId{{index}}' data-index='{{index}}'>
         <image src='{{item.pic}}' class='left' bindtap='toProductPage' data-index='{{index}}'></image>
         <view class='right'>
-          <view class='title'>{{item.title}}</view>
+          <view class='title'><text>{{formatter.format(item.title)}}</text></view>
           <view class='price'>
             <text style='font-size:28rpx;'>￥</text>{{item.finalPrice}}</view>
           <view class='but-container' mode='center'>
