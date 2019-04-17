@@ -1,22 +1,27 @@
 page{
   height: 100%;
+  background-color: #eeeeee;
 }
 .scroll{
   position: absolute;
   top: 0px;
-  bottom: 100rpx;
+  bottom: 140rpx;
   width: 100%;
 }
 .sv-left{
   width: 25%;
   float: left;
   height: 100%;
-  background: #e1e1e1;
+  background: #eeeeee;
 }
 .sv-right{
   width: 75%;
-  float: left;
-  height: 100%;
+  position: absolute;
+  top: 40rpx;
+  right: 0;
+  bottom: 0rpx;
+  /* float: left; */
+  /* height: 100%; */
   background: #fff;
 }
 
@@ -95,8 +100,8 @@ page{
   right:18rpx;
 }
 .but-container .add{
-  width:64rpx;
-  height:64rpx;
+  width:50rpx;
+  height:50rpx;
 }
 .but-container .chosen{
   padding:8rpx;
@@ -184,4 +189,17 @@ page{
 .catagory .wrapper .cata-child.active{
   color: #9fc03a;
   border: 1px solid #9fc03a;
+}
+.fixed-title{
+  position: fixed;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  text-align: center;
+  right: 0;
+  width: 75%;
+  top: 0;
+  background-color: #fff;
+  color: #9fc03a;
+  z-index: 8;
 }

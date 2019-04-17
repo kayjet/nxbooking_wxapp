@@ -11,7 +11,7 @@
 </wxs>
 
 <view class="container">
-
+  <view class='fixed-title'>{{fixedTitle}}</view>
   <view class='scroll'>
     <scroll-view scroll-y style="height:100%;" class='sv-left' id="leftBar" scroll-with-animation='true' scroll-into-view="{{toLeftViewId}}" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scrollLeft">
       <view class="item {{item.isActive? 'active' : ''}}" id="leftId{{index}}" wx:for="{{leftData}}" data-index='{{index}}' bindtap='onClickLeftItem'>

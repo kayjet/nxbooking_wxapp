@@ -103,6 +103,10 @@ Page({
           var key = "leftData[" + i + "].isActive";
           data[key] = true;
           this.setData(data);
+          // console.log("this.data.leftData[i]", this.data.leftData[i].title);
+          this.setData({
+            fixedTitle: this.data.leftData[i].title
+          })
           this.setData({
             toLeftViewId: 'leftId' + i
           });
@@ -388,7 +392,8 @@ Page({
         leftData[0].isActive = true;
         that.setData({
           leftData: leftData,
-          rightData: rightData
+          rightData: rightData,
+          fixedTitle:leftData[0].title
         });
         for (let i = 0; i < that.data.rightScrollViewCount.length; i++) {
           let query = wx.createSelectorQuery();
