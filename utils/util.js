@@ -169,7 +169,7 @@ module.exports = {
   // BASE_IMG_URL: "https://www.opdar.com/booking/image/image/getAvatar?avatarName=",
   BASE_IMG_URL: "https://www.sunshinegreen.net/booking/background/image/getAvatar?avatarName=",
   isMobile: function (val) {
-    if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(val)) || val.length!=11) {
+    if (!(/^1[34578]\d{9}$/.test(val)) || val.length!=11) {
       return false;
     } else {
       return true;
